@@ -2,10 +2,18 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 var Schema = mongoose.Schema;
 
+// var measSchema = Schema(
+//   {
+//     pres: {type: Number, required: false},
+//     temp: {type: Number, required: false},
+//     psal: {type: Number, required: false}  
+//   }, 
+//   { _id : false }
+// );
+
 var ProfileSchemax = Schema(
   {
     _id: {type: String, required: true},
-    compressed: {type: Boolean, required: false},
     nc_url: {type: String, required: true},
     position_qc: {type: Number, required: true},
     cycle_number: {type: Number, required: true},
@@ -14,9 +22,16 @@ var ProfileSchemax = Schema(
     date_added: {type: Date, required: false},
     date_qc: {type: Number, required: false},
     max_pres: {type: Number, required: true},
-    measurements: {type: String, required: true},
+    //measurements: {type: [[mongoose.Mixed]], required: true},
+    measurements: Schema.Types.Mixed,
+    //measurements: [measSchema],
+    // measurements: [{
+    //   _id: false,
+    //   type: [mongoose.Mixed]
+    // }],
     //bgcMeas: [mongoose.Schema.Types.Mixed], // defining schema slows down for large bgcMeas
-    bgcMeas: {type: String, required: true},
+    //bgcMeas: {type: [[mongoose.Mixed]], required: true},
+    bgcMeas: Schema.Types.Mixed,
     bgcMeasKeys: {type: [String], required: false},
     lat: {type: Number, required: true},
     lon: {type: Number, required: true},
@@ -30,7 +45,7 @@ var ProfileSchemax = Schema(
     WMO_INST_TYPE: {type: String, required: false, max: 100},
     POSITIONING_SYSTEM: {type: String, required: false, max: 100},
     DATA_MODE: {type: String, required: false, max: 100},
-    PARAMETER_DATA_MODE: { type: [[String]], required: false},
+    PARAMETER_DATA_MODE: Schema.Types.Mixed,
     DATA_CENTRE: {type: String, required: false, max: 100},
     DIRECTION: {type: String, required: false, max: 100},
     PLATFORM_TYPE: {type: String, required: false, max: 100},
@@ -44,7 +59,8 @@ var ProfileSchemax = Schema(
   },
   {
     toObject: { virtuals: true },
-    toJSON: { virtuals: true }
+    toJSON: { virtuals: true },
+    versionKey: false
   }
 );
 
@@ -134,5 +150,5 @@ ProfileSchemax
 });
 
 //Export model, mongoose automatically looks for the plural of the first input. 'profiles'
-module.exports = mongoose.model('profilesx', ProfileSchemax, 'profiles');
+module.exports = mongoose.model('profilesx', ProfileSchemax, 'profilesx');
 //module.exports = mongoose.model('goship', ProfileSchema, 'goship');

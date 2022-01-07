@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "compress-json": "^2.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -14,7 +15,6 @@
     "moment": "^2.24.0",
     "mongoose": ">=5.7.5",
     "morgan": "~1.9.1",
-    "msgpack": "^1.0.3",
     "zipson": "^0.2.12"
   }
 }

@@ -16,6 +16,7 @@ var ProfileSchema = Schema(
     measurements: [{ pres: {type: Number, required: true}, //defaulting to null may cause performance issues for profiles with all nan
                      temp: {type: Number, required: false, default: null}, 
                      psal: {type: Number, required: false, default: null},
+                     _id: false
                      }],
     //bgcMeas: [mongoose.Schema.Types.Mixed], // defining schema slows down for large bgcMeas
     bgcMeas: [{ pres: {type: Number, required: false},
@@ -57,7 +58,8 @@ var ProfileSchema = Schema(
     WMO_INST_TYPE: {type: String, required: false, max: 100},
     POSITIONING_SYSTEM: {type: String, required: false, max: 100},
     DATA_MODE: {type: String, required: false, max: 100},
-    PARAMETER_DATA_MODE: { type: [String], required: false},
+    //PARAMETER_DATA_MODE: { type: [String], required: false},
+    PARAMETER_DATA_MODE: Schema.Types.Mixed,
     DATA_CENTRE: {type: String, required: false, max: 100},
     DIRECTION: {type: String, required: false, max: 100},
     PLATFORM_TYPE: {type: String, required: false, max: 100},
